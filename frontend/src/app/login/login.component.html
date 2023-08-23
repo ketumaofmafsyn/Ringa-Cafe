@@ -1,0 +1,39 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row fxLayout="row">
+        <span class="title-center">Signin</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="loginForm">
+    <div fxFlex fxLayout="column">
+        <mat-form-field appearance="fill" fxFlex>
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" type="email" required>
+            <mat-error *ngIf="loginForm.get('email').touched && loginForm.get('email').invalid">
+                <span *ngIf="loginForm.controls.email.errors.required">This field is mandatory</span>
+                <span *ngIf="loginForm.controls.email.errors.pattern">Incorrect Email Format Please try again</span>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" fxFlex>
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password" type="password" required>
+            <mat-error *ngIf="loginForm.controls.password.touched && loginForm.controls.password.invalid">
+              <span *ngIf="loginForm.controls.password.errors.required">This Field is Mandatory!</span>
+              <span *ngIf="loginForm.controls.password.errors.pattern">
+                Password must Contain, Minimum eight characters, at least one letter, one number and one special character:
+              </span><br>
+              <span *ngIf="loginForm.controls.password.errors.minlength">
+               ...
+            </span>
+            </mat-error>
+          </mat-form-field>
+    </div>
+</form>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+    <button mat-raised-button color="primary" type="submit" (click)="handleSubmit()"
+    [disabled]="!(loginForm.valid && loginForm.dirty)">Signin</button>
+    <button mat-raised-button color="primary" mat-dialog-close>Quit</button>
+</mat-dialog-actions>
